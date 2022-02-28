@@ -2,64 +2,7 @@
   Facebook API
 </h1>
 
-## <p>Summary</a>
-
-* [Rules](#rules)
-* [Story](#story)
-* [Credits](#credits)
-
-## <a name='overview'>Rules</a>
-
-* You **MUST** create a **PUBLIC** git repository named `facebook-api`
-* You **MUST** return the project before Friday February 2022, 25 at 23:42. Add your GitHub link
-* You **MUST** create a file called `.author` with your username followed by a newline:
-```sh
-~/efrei/facebook-api ❯❯❯ cat -e .author
-{
-  firstName: "Dylan",
-  lastName: "DE SOUSA"
-}
-```
-
-## <a name='story'>Story</a>
-You have to implement a **REST API**.
-Please follow the **models** and the **requirements** carefully.
-
-## Prisma Models
-
-```
-model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  Profile   Profile?
-  Posts     Post[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Profile {
-  id        Int    @id @default(autoincrement())
-  firstName String
-  lastName  String
-  User      User   @relation(fields: [userId], references: [id])
-  userId    String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Post {
-  id       Int    @id @default(autoincrement())
-  message  String
-  Author   User   @relation(fields: [authorId], references: [id])
-  authorId String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-```
-
 ## API Routes
-
 
 ## `/api/v1/authentication`
 ### DTOs
@@ -105,3 +48,4 @@ model Post {
 | `GET`    | `/`      | `Authorization: TOKEN` | `null`          | `{ posts: Post[] }` | return a list of Post. |
 | `PATCH`  | `/:id`   | `Authorization: TOKEN` | `UpdatePostDto` | `{ post: Post }`    | update a Post.         |
 | `DELETE` | `/:id`   | `Authorization: TOKEN` | `null`          | `null`              | delete a Post.         |
+
